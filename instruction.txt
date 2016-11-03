@@ -1,0 +1,43 @@
+instruction for AutoImporter
+configuration settings:
+
+1).Firstly connect to FTP  by using configurations  in app.config 
+FTP_hostname
+FTP_username,
+FTP_password,
+FTP_port
+and set  it to your data
+2). Then you need to add path  for download and import files using
+FTP_PathXmlFiles: for download from where in FTP,
+Local_PathXmlFiles:local folder where files are downloaded,
+Local_PathErrorFiles:local folder where move files if import failed,
+Local_TempXmlFiles:local folder (we import some files which needed to have temp file ) so at the end of path add "/tempxml.xml"
+3). After import AutoImporter send Email about import status so use this setings
+EmailFrom,
+EmailTo,
+apiKey:your apiKey in sendgrid account
+if you need send Email to several  mails you can add in  "EmailTo"  mail address how many as you want, only separate with comma
+
+
+How to run Autoimporter
+
+After completed  configuration setting in app.config 
+ You need give parametrs in   .exe 
+-delftpfiles  -delxmlfiles -importlocalxmlfiles
+
+-delftpfiles
+Delete files from FTP_PathXmlFiles path on FTP.
+
+-delxmlfiles
+Delete files from Local_PathXmlFiles path.
+
+-importlocalxmlfiles
+Import from Local_PathXmlFiles if no given first download from ftp than import
+
+
+
+Warning
+after finishing import first check Email if message  conteins " Files imported with some error(s)"  
+sentenses you can see error files name and than find it in  "Local_PathErrorFiles" folder with datetime.
+If you not give parameter -delxmlfiles at first time , delete all files  from Local_PathXmlFiles  and  run agein 
+If you need import only Error files again copy from "Local_PathErrorFiles" to "Local_PathXmlFiles" and "-importlocalxmlfiles" parameter than run again
